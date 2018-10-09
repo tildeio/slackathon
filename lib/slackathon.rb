@@ -17,4 +17,21 @@ module Slackathon
   def self.queue=(queue)
     @queue = queue
   end
+
+  def self.report_errors?
+    @report_errors = true unless defined?(@report_errors)
+    !!@report_errors
+  end
+
+  def self.report_errors=(val)
+    @report_errors = val
+  end
+
+  def self.raise_errors?
+    !!@raise_errors
+  end
+
+  def self.raise_errors=(val)
+    @raise_errors = val
+  end
 end

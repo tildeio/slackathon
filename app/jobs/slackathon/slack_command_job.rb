@@ -19,19 +19,21 @@ module Slackathon
 
       say(url, body)
     rescue => e
-      say(url, {
-        response_type: "ephemeral",
-        text: <<~TEXT
-          :mac_bomb: Darn - that slash command (#{name.underscore.gsub("_command", "")}) didn't work
-          ```
-          #{e.class}: #{e.message}
-          #{e.backtrace.take(5).map { |line| line.indent(4) }.join("\n")}
-              ...
-          ```
-        TEXT
-      })
+      if Slackathon.report_errors?
+        say(url, {
+          response_type: "ephemeral",
+          text: <<~TEXT
+            :mac_bomb: Darn - that slash command (#{name.underscore.gsub("_command", "")}) didn't work
+            ```
+            #{e.class}: #{e.message}
+            #{e.backtrace.take(5).map { |line| line.indent(4) }.join("\n")}
+                ...
+            ```
+          TEXT
+        })
+      end
 
-      raise e
+      raise e if Slackathon.raise_errors?
     end
 
     private
