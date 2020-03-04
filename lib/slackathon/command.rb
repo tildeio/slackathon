@@ -29,5 +29,9 @@ module Slackathon
     private
 
     attr_reader :params
+
+    def say(body)
+      Slackathon.say(params[:response_url], body)
+    end
   end
 end

@@ -1,6 +1,3 @@
-require "net/http"
-require "uri"
-
 module Slackathon
   class SlackCommandJob < ApplicationJob
     queue_as Slackathon.queue
@@ -37,14 +34,7 @@ module Slackathon
     private
 
     def say(url, body)
-      uri = URI(url)
-      headers = { "Content-Type" => "application/json" }
-      body = (String === body) ? body : body.to_json
-      response = Net::HTTP.post uri, body, headers
-
-      unless Net::HTTPSuccess === response
-        raise "#{response.code}: #{response.body}"
-      end
+      Slackathon.say(url, body)
     end
   end
 end
