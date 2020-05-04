@@ -23,6 +23,8 @@ jobs:
         with:
           path: vendor/bundle
           key: ${{ runner.os }}-bundler
+      - name: Set up sqlite
+        run: sudo apt-get install libsqlite3-dev -y
       - name: Set up Ruby
         uses: actions/setup-ruby@v1
         with:
