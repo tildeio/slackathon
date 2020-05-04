@@ -14,3 +14,7 @@ gemspec
 # gem 'byebug', group: [:development, :test]
 #
 gem 'rails', '~> 6.0'
+
+group :development, :test do
+  gem 'sqlite3'
+end
